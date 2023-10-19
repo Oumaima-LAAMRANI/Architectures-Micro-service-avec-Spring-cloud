@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 @SpringBootApplication
 public class CustomerServiceApplication {
@@ -15,7 +16,8 @@ public class CustomerServiceApplication {
 	}
 	// CommandLineRunner pour l'initialisation des données de test au démarrage de l'application
 	@Bean
-	CommandLineRunner start(CustomerRepository customerRepository){
+	CommandLineRunner start(CustomerRepository customerRepository, RepositoryRestConfiguration restConfiguration){
+		restConfiguration.exposeIdsFor(Customer.class);
 		return args -> {
 			// Ajout de clients
 			customerRepository.save(new Customer(null,"Oumaima","ouma@gmail.com"));
